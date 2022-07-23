@@ -1,11 +1,25 @@
 {
-  "name": "vue2-move-img",
+  "name": "vue2-move-image",
   "version": "0.1.0",
-  "private": true,
+  "private": false,
+  "author": "爱华 <hstcssk@gmail.com>",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
-    "lint": "vue-cli-service lint"
+    "build": "vue-cli-service build  --dest build",
+    "lint": "vue-cli-service lint",
+    "lib": "vue-cli-service build --target lib ./src/index.js"
+  },
+  "main": "dist/vue2-move-image.umd.min.js",
+  "description": "图片横向无缝滚动",
+  "keywords": [
+    "vuejs",
+    "vue2",
+    "无缝滚动",
+    "横向移动"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/CNLHB/move-image"
   },
   "dependencies": {
     "core-js": "^3.6.5",

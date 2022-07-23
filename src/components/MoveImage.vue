@@ -1,26 +1,32 @@
 <template>
   <div class="container">
-    <div class="box" ref="boxRef">
-      <div class="box_imgBox">
-        <div class="imgsBox" ref="imgsBox">
-          <img src="./方案一/背景动.png" alt="" />
+      <div class="box_img_box"  :style="{height: options.height}">
+        <div class="imgs_box" ref="imgsBox" :style="{height: options.height}">
+          <img class="img_item" v-for="(item,index) in imgs" :key="index" :src="item" alt="" :style="{width: options.width,height: options.height}" />
+          <template v-if="imgs&&imgs.length==0">
+            <div  v-for="(item,index) in 10" :key="index" :class="'rect '" :style="{background:randomColor()}"></div>
+          </template>
         </div>
       </div>
-    </div>
   </div>
 </template>
 
 <script>
 class MoveImage {
-  constructor(imgsBox) {
+  constructor(imgsBox, options={}) {
+    this.options = 
     // 获取图片容器
     this.imgsBox = imgsBox
     // 获取图片宽
     this.imgWidth = this.imgsBox.clientWidth / this.imgsBox.children.length
     // 初始速度
-    this.speed = 5
+    this.speed = options.speed || 5 
     // 添加移动方向
-    this.direction = 'left'
+    this.direction = options.direction || 'left'
+    // 初始化加减步骤大小
+    this.stage =   options.stage || 1
+    // 初始化最大速度
+    this.max = options.max || 15
     // 添加定时器
     this.timer = null
     // 初始化无缝滚动
@@ -68,42 +74,45 @@ class MoveImage {
     }, 20)
   }
   stop() {
-    clearInterval(this.timer)
-    this.timer = null
+    this.clear()
   }
   reset() {
     this.speed = 5
   }
   addSpeed() {
-    this.speed++
-    if (this.speed >= 15) this.speed = 15
+    this.speed = this.speed + this.stage
+    if (this.speed >= this.max) this.speed = this.max
   }
   subSpeed() {
-    this.speed--
+    this.speed = this.speed - this.stage
     if (this.speed <= 1) this.speed = 1
   }
   toRight() {
-    clearInterval(this.timer)
+    this.clear()
     this.direction = 'right'
-    this.timer = null
     this.start()
   }
   toLeft() {
-    clearInterval(this.timer)
+    this.clear()
     this.direction = 'left'
-    this.timer = null
     this.start()
+  }
+  clear(){
+    clearInterval(this.timer)
+    this.timer = null
   }
 }
 
 export default {
-  name: 'MoveImg',
+  name: 'MoveImage',
   props: {
-    config: {
+    options: {
       type: Object,
       default: function () {
         return {
           autoplay: true,
+          width: '560px',
+          height: '484px'
         }
       },
     },
@@ -120,9 +129,9 @@ export default {
     }
   },
   mounted() {
-    this.moveImg = new MoveImage(this.$refs.imgsBox)
-    if (this.config.autoplay) {
-      // this.moveImg.start()
+    this.moveImg = new MoveImage(this.$refs.imgsBox,this.options)
+    if (this.options.autoplay) {
+      this.moveImg.start()
     }
   },
   methods: {
@@ -145,8 +154,11 @@ export default {
       this.moveImg.toRight()
     },
     reset() {
-      this.moveImg.toLeft()
+      this.moveImg.reset()
     },
+    randomColor(){
+      return `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`
+    }
   },
 }
 </script>
@@ -156,25 +168,35 @@ export default {
 .container {
   width: 100%;
 }
-.box {
-  width: 520px;
-  margin: 50px auto;
-}
 
-.box_imgBox {
-  width: 500px;
-  height: 280px;
+/**
+  width: 100vw;
+*/
+.box_img_box {
   overflow: hidden;
   position: relative;
 }
-.imgsBox {
+.imgs_box {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
   position: absolute;
 }
-.box_imgBox img {
+.box_img_box .img_item {
   width: 500px;
+  height: 300px;
+}
+.rect{
+  width: 100vw;
   height: 280px;
+  &.rect_0{
+    background: #000;
+  }
+  &.rect_1{
+    background: #666;
+  }
+  &.rect_2{
+    background: pink;
+  }
 }
 </style>
