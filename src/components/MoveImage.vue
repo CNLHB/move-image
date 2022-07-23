@@ -24,6 +24,8 @@
 </template>
 
 <script>
+let LEFT = "left";
+let TRANSLATE = "translate";
 class MoveImage {
   constructor(imgsBox, options = {}) {
     this.options = options
@@ -41,6 +43,8 @@ class MoveImage {
     this.max = options.max || 15
     // 添加定时器
     this.timer = null
+    this.mode = TRANSLATE
+    this.left = 0
     // 初始化无缝滚动
     this.init()
   }
@@ -63,9 +67,27 @@ class MoveImage {
     if (this.timer) {
       return
     }
-    this.timer = setInterval(() => {
-      //  获取当前left
-      let l = this.imgsBox.offsetLeft
+    this.animation()
+
+  }
+  animation(){
+    if(window.requestAnimationFrame){
+      requestAnimationFrame(this.update.bind(this))
+      this.timer = String(Math.random())
+    }else{
+        this.timer = setInterval(() => {
+        this.update()
+      }, 20)
+    }
+
+  }
+  update(){
+      if(this.timer){
+        this.animation()
+      }
+          //  获取当前left
+      let l = this.mode === LEFT ? this.imgsBox.offsetLeft : this.left
+      console.log('llll',l);
       if (this.direction === 'right') l += this.speed
       else l -= this.speed
       // 判断是否到第一张或最后一张
@@ -83,10 +105,17 @@ class MoveImage {
       } else {
         this.translate(l)
       }
-    }, 20)
   }
   translate(left) {
-    this.imgsBox.style.left = left + 'px'
+    if(this.mode === LEFT) {
+      // if(this.imgsBox.className.indexOf('p_left')===-1){
+      //   this.imgsBox.className = this.imgsBox.className.replace(/(.*)/, '$1 p_left')
+      // }
+      this.imgsBox.style.left = left + 'px'
+    }else{
+      this.imgsBox.style.transform = `translateX(${left}px)`
+    }
+    this.left = left
   }
   stop() {
     this.clear()
@@ -198,6 +227,9 @@ export default {
   justify-content: flex-start;
   align-items: flex-start;
   position: absolute;
+  &.p_left{
+    position: absolute;
+  }
 }
 .box_img_box .img_item {
   width: 500px;

@@ -33,7 +33,7 @@ export default {
       imgs: [require('./assets/方案一/背景动.png')],
       options: {
         max: 100,
-        stage: 5,
+        stage: 1,
         speed: 5,
         autoplay: true,
         width: '560px',
