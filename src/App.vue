@@ -30,12 +30,13 @@ export default {
   data() {
     return {
       moveImgRef: null,
-      imgs: [require('./assets/方案一/背景动.png')],
+      imgs: [require('./assets/方案一/背景动.png'),require('./assets/方案一/背景动.png')],
       options: {
         max: 100,
         stage: 1,
         speed: 5,
-        autoplay: true,
+        // autoplay: true,
+        // mode: 'left',
         width: '560px',
         height: '484px'
       }
@@ -47,7 +48,6 @@ export default {
   },
   methods: {
     start() {
-      console.log(this.moveImgRef);
       this.moveImgRef.start()
     },
     stop() {
@@ -112,7 +112,7 @@ html,body {
         width: 100%;
         display: flex;
         align-items: center;
-        justify-content: space-between;
+        justify-content: space-around;
         flex-wrap: wrap;
         margin-top: 5px;
       }

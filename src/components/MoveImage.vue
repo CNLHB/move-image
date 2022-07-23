@@ -32,7 +32,7 @@ class MoveImage {
     // 获取图片容器
     this.imgsBox = imgsBox
     // 获取图片宽
-    this.imgWidth = this.imgsBox.clientWidth / this.imgsBox.children.length
+    this.imgWidth =  this.imgsBox.clientWidth / this.imgsBox.children.length
     // 初始速度
     this.speed = options.speed || 5
     // 添加移动方向
@@ -43,7 +43,7 @@ class MoveImage {
     this.max = options.max || 15
     // 添加定时器
     this.timer = null
-    this.mode = TRANSLATE
+    this.mode = options.mode || TRANSLATE
     this.left = 0
     // 初始化无缝滚动
     this.init()
@@ -87,13 +87,13 @@ class MoveImage {
       }
           //  获取当前left
       let l = this.mode === LEFT ? this.imgsBox.offsetLeft : this.left
-      console.log('llll',l);
       if (this.direction === 'right') l += this.speed
       else l -= this.speed
       // 判断是否到第一张或最后一张
 
       if (l <= -(this.imgsBox.children.length - 1) * this.imgWidth) {
-        this.translate(-this.imgWidth)
+        const difference = l + ((this.imgsBox.children.length - 1) * this.imgWidth)
+        this.translate(-this.imgWidth + difference)
         return
       } else {
         this.translate(l)
@@ -108,12 +108,9 @@ class MoveImage {
   }
   translate(left) {
     if(this.mode === LEFT) {
-      // if(this.imgsBox.className.indexOf('p_left')===-1){
-      //   this.imgsBox.className = this.imgsBox.className.replace(/(.*)/, '$1 p_left')
-      // }
       this.imgsBox.style.left = left + 'px'
     }else{
-      this.imgsBox.style.transform = `translateX(${left}px)`
+      this.imgsBox.style.transform = `translate3d(${left}px,0,0)`
     }
     this.left = left
   }
@@ -226,10 +223,8 @@ export default {
   display: flex;
   justify-content: flex-start;
   align-items: flex-start;
+  // 获取真实宽度
   position: absolute;
-  &.p_left{
-    position: absolute;
-  }
 }
 .box_img_box .img_item {
   width: 500px;
