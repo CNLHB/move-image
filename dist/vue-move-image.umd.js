@@ -1,5 +1,14 @@
-module.exports =
-/******/ (function(modules) { // webpackBootstrap
+(function webpackUniversalModuleDefinition(root, factory) {
+	if(typeof exports === 'object' && typeof module === 'object')
+		module.exports = factory();
+	else if(typeof define === 'function' && define.amd)
+		define([], factory);
+	else if(typeof exports === 'object')
+		exports["vue-move-image"] = factory();
+	else
+		root["vue-move-image"] = factory();
+})((typeof self !== 'undefined' ? self : this), function() {
+return /******/ (function(modules) { // webpackBootstrap
 /******/ 	// The module cache
 /******/ 	var installedModules = {};
 /******/
@@ -877,4 +886,5 @@ components_MoveImage.install = function (Vue) {
 /***/ })
 
 /******/ });
-//# sourceMappingURL=vue2-move-image.common.js.map
+});
+//# sourceMappingURL=vue-move-image.umd.js.map

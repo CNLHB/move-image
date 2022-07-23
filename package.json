@@ -1,6 +1,6 @@
 {
-  "name": "vue2-move-image",
-  "version": "0.2.0",
+  "name": "vue-move-image",
+  "version": "0.1.0",
   "private": false,
   "author": "爱华 <hstcssk@gmail.com>",
   "scripts": {
@@ -9,7 +9,7 @@
     "lint": "vue-cli-service lint",
     "lib": "vue-cli-service build --target lib ./src/index.js"
   },
-  "main": "dist/vue2-move-image.umd.min.js",
+  "main": "dist/vue-move-image.umd.min.js",
   "description": "图片横向无缝滚动",
   "keywords": [
     "vuejs",
