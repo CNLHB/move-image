@@ -1,30 +1,42 @@
 <template>
   <div class="container">
-      <div class="box_img_box"  :style="{height: options.height}">
-        <div class="imgs_box" ref="imgsBox" :style="{height: options.height}">
-          <img class="img_item" v-for="(item,index) in imgs" :key="index" :src="item" alt="" :style="{width: options.width,height: options.height}" />
-          <template v-if="imgs&&imgs.length==0">
-            <div  v-for="(item,index) in 10" :key="index" :class="'rect '" :style="{background:randomColor()}"></div>
-          </template>
-        </div>
+    <div class="box_img_box" :style="{ height: options.height }">
+      <div class="imgs_box" ref="imgsBox" :style="{ height: options.height }">
+        <img
+          class="img_item"
+          v-for="(item, index) in imgs"
+          :key="index"
+          :src="item"
+          alt=""
+          :style="{ width: options.width, height: options.height }"
+        />
+        <template v-if="imgs && imgs.length == 0">
+          <div
+            v-for="(item, index) in 10"
+            :key="index"
+            :class="'rect '"
+            :style="{ background: randomColor() }"
+          ></div>
+        </template>
       </div>
+    </div>
   </div>
 </template>
 
 <script>
 class MoveImage {
-  constructor(imgsBox, options={}) {
-    this.options = 
+  constructor(imgsBox, options = {}) {
+    this.options = options
     // 获取图片容器
     this.imgsBox = imgsBox
     // 获取图片宽
     this.imgWidth = this.imgsBox.clientWidth / this.imgsBox.children.length
     // 初始速度
-    this.speed = options.speed || 5 
+    this.speed = options.speed || 5
     // 添加移动方向
     this.direction = options.direction || 'left'
     // 初始化加减步骤大小
-    this.stage =   options.stage || 1
+    this.stage = options.stage || 1
     // 初始化最大速度
     this.max = options.max || 15
     // 添加定时器
@@ -45,10 +57,10 @@ class MoveImage {
     // 增加图片
     this.addImg()
     // 矫正图片位置
-    this.imgsBox.style.left = -this.imgWidth + 'px'
+    this.translate(-this.imgWidth)
   }
   start() {
-    if(this.timer){
+    if (this.timer) {
       return
     }
     this.timer = setInterval(() => {
@@ -59,19 +71,22 @@ class MoveImage {
       // 判断是否到第一张或最后一张
 
       if (l <= -(this.imgsBox.children.length - 1) * this.imgWidth) {
-        this.imgsBox.style.left = -this.imgWidth + 'px'
+        this.translate(-this.imgWidth)
         return
       } else {
-        this.imgsBox.style.left = l + 'px'
+        this.translate(l)
       }
       if (l >= 0) {
-        this.imgsBox.style.left =
-          -(this.imgsBox.children.length - 2) * this.imgWidth + 'px'
+        const left = -(this.imgsBox.children.length - 2) * this.imgWidth
+        this.translate(left)
         return
       } else {
-        this.imgsBox.style.left = l + 'px'
+        this.translate(l)
       }
     }, 20)
+  }
+  translate(left) {
+    this.imgsBox.style.left = left + 'px'
   }
   stop() {
     this.clear()
@@ -97,7 +112,7 @@ class MoveImage {
     this.direction = 'left'
     this.start()
   }
-  clear(){
+  clear() {
     clearInterval(this.timer)
     this.timer = null
   }
@@ -112,7 +127,7 @@ export default {
         return {
           autoplay: true,
           width: '560px',
-          height: '484px'
+          height: '484px',
         }
       },
     },
@@ -129,7 +144,7 @@ export default {
     }
   },
   mounted() {
-    this.moveImg = new MoveImage(this.$refs.imgsBox,this.options)
+    this.moveImg = new MoveImage(this.$refs.imgsBox, this.options)
     if (this.options.autoplay) {
       this.moveImg.start()
     }
@@ -156,9 +171,11 @@ export default {
     reset() {
       this.moveImg.reset()
     },
-    randomColor(){
-      return `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)}, ${Math.floor(Math.random() * 256)})`
-    }
+    randomColor() {
+      return `rgb(${Math.floor(Math.random() * 256)}, ${Math.floor(
+        Math.random() * 256
+      )}, ${Math.floor(Math.random() * 256)})`
+    },
   },
 }
 </script>
@@ -186,16 +203,16 @@ export default {
   width: 500px;
   height: 300px;
 }
-.rect{
+.rect {
   width: 100vw;
   height: 280px;
-  &.rect_0{
+  &.rect_0 {
     background: #000;
   }
-  &.rect_1{
+  &.rect_1 {
     background: #666;
   }
-  &.rect_2{
+  &.rect_2 {
     background: pink;
   }
 }
