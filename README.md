@@ -1,10 +1,10 @@
-# vue2-move-image
+# vue-move-image
 
 [![npm](https://img.shields.io/npm/v/vue-move-image.svg)](https://www.npmjs.com/package/vue-move-image)
 [![npm](https://img.shields.io/npm/dt/vue-move-image.svg)](https://www.npmjs.com/package/vue-move-image)
-[![GitHub stars](https://img.shields.io/github/stars/CNLHB/move-image.svg?style=social&label=Stars&style=for-the-badge)](https://github.com/CNLHB/move-image/stargazers)  
-图片横向无缝滚动, Chrome & more with Vue.js(vue2.x).  
-欢迎点个star🎉🎉🎉	
+[![GitHub stars](https://img.shields.io/github/stars/CNLHB/move-image.svg?style=social&label=Stars&style=for-the-badge)](https://github.com/CNLHB/move-image/stargazers)
+图片横向无缝滚动, Chrome & more with Vue.js(vue2.x).
+欢迎点个star🎉🎉🎉
 
 ![1658566889282](image/README/1658566889282.png)
 
@@ -45,11 +45,11 @@ export default {
 
 ### Props of ColorPicker
 
-| Name    | Type   | Default                                                      | Description                                                  |
-| ------- | ------ | ------------------------------------------------------------ | ------------------------------------------------------------ |
+| Name    | Type   | Default                                                                                                                                     | Description                                                     |
+| ------- | ------ | ------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------- |
 | options | object | {<br />width: '560px',<br />height: '484px',<br />autoplay: true,<br />speed: 5,<br />stage: 1,<br />max: 15,<br />direction: 'left'<br />} | 配置项,图片宽高，<br />是否自动播放，初速度，最大速度，调速大小 |
-| imgs    | array  | []                                                           | 图片地址数组[url1,url2]                                      |
-|         |        |                                                              |                                                              |
+| imgs    | array  | []                                                                                                                                          | 图片地址数组[url1,url2]                                         |
+|         |        |                                                                                                                                             |                                                                 |
 
 ### example
 

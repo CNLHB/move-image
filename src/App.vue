@@ -9,11 +9,13 @@
         <button class="leftBtn" @click="toLeft">向左</button>
          <button class="addSpeedBtn" @click="addSpeed">加速</button>
         <button class="stopBtn" @click="stop">暂停</button>
+        <button class="stopBtn" @click="setSpeed">设速</button>
       </div>
       <div class="box_btnBox">
         <button class="rightBtn" @click="toRight">向右</button>
         <button class="subSpeedBtn" @click="subSpeed">减速</button>
         <button class="restoreBtn" @click="reset">还原</button>
+        <button class="restoreBtn" @click="setSpeed(30)">设速</button>
       </div>
     </div>
   </div>
@@ -52,6 +54,9 @@ export default {
     },
     stop() {
       this.moveImgRef.stop()
+    },
+    setSpeed(speed){
+      this.moveImgRef.setSpeed(speed||'100')
     },
     addSpeed() {
       this.moveImgRef.addSpeed()

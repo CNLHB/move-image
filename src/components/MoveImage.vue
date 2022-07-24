@@ -40,7 +40,7 @@ class MoveImage {
     // 初始化加减步骤大小
     this.stage = options.stage || 1
     // 初始化最大速度
-    this.max = options.max || 15
+    this.max = options.max || 50
     // 添加定时器
     this.timer = null
     this.mode = options.mode || TRANSLATE
@@ -128,6 +128,10 @@ class MoveImage {
     this.speed = this.speed - this.stage
     if (this.speed <= 1) this.speed = 1
   }
+  setSpeed(speed){
+    if(typeof speed !== 'number') return console.error("speed value is not a number")
+    this.speed = Math.max(1,Math.min(speed,this.max))
+  }
   toRight() {
     this.clear()
     this.direction = 'right'
@@ -181,6 +185,9 @@ export default {
     },
     stop() {
       this.moveImg.stop()
+    },
+    setSpeed(speed){
+      this.moveImg.setSpeed(speed)
     },
     addSpeed() {
       this.moveImg.addSpeed()
